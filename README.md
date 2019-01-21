@@ -1,4 +1,6 @@
 # Solidity splitter
+[![CircleCI](https://circleci.com/gh/tinchoabbate/solidity-splitter.svg?style=svg)](https://circleci.com/gh/tinchoabbate/solidity-splitter)
+
 Because nothing is more boring than manually splitting a set of smart contracts contained in a single file.
 
 This is a simple python script to split a set of Solidity smart contracts. Whether by providing an address of a verified contract in Etherscan or a local Solidity file containing multiple contracts, the script will attempt to split all contracts found, into as many files as contracts are detected. It also works with interfaces and libraries.
