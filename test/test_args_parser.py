@@ -16,6 +16,11 @@ class TestGetArgsParser(unittest.TestCase):
     def test_parser_has_one_mutually_exclusive_group(self):
         parser_groups = self.parser._mutually_exclusive_groups
         self.assertEqual(len(parser_groups), 1)
+    
+
+    def test_parser_mutually_exclusive_group_requires_one_argument(self):
+        parser_groups = self.parser._mutually_exclusive_groups
+        self.assertTrue(parser_groups[0].required)
 
 
     def test_parser_defines_address_string_argument(self):
