@@ -10,8 +10,8 @@ This is a simple python script to split a set of Solidity smart contracts. Wheth
 
 ## Usage
 ~~~bash
-$ python3 splitter.py --help
-usage: splitter.py [-h] (-a ADDRESS | -f FILE)
+$ python3 run.py --help
+usage: run.py [-h] (-a ADDRESS | -f FILE)
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -24,7 +24,7 @@ optional arguments:
 
 ## Test
 ~~~bash
-$ python3 -m unittest discover
+$ python3 -m unittest
 ~~~
 
 ## Limitations

@@ -1,5 +1,5 @@
 import unittest
-from splitter import extract_pragma
+from splitter.splitter import extract_pragma
 
 
 class TestExtractPragma(unittest.TestCase):

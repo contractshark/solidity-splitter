@@ -1,7 +1,7 @@
-#!/usr/bin/python3
-import os, re, sys, json, argparse
+import re, sys, json
 import urllib.request
 import urllib.parse
+from .helpers import load_contract_lines, get_args_parser
 
 
 def extract_pragma(source_lines):
@@ -27,13 +27,6 @@ def extract_pragma(source_lines):
         del source_lines[pragma_at]
 
     return pragma_statement
-
-
-def load_contract_lines(filepath):
-    source_code_lines = []
-    with open(str(filepath), "r") as source_file:
-        source_code_lines = source_file.readlines()
-    return source_code_lines
 
 
 def extract_contracts(source_lines):
@@ -83,21 +76,6 @@ def extract_contracts(source_lines):
     return contract_names, contracts[:-1]
 
 
-def persist_contracts(names, contracts_code, pragma, output_dir="contracts"):
-    """
-    Takes a list of names and a list of source codes,
-    and writes each contract to a separate file in the given directory
-    """
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    
-    for name, code in zip(names, contracts_code):
-        with open(f"{os.path.join(output_dir, name)}.sol", "w") as out_file:
-            if len(pragma):
-                out_file.write(pragma + "\n")
-            out_file.writelines(code)
-
-
 def prepare_etherscan_request(contract_address):
     params = {
         "module": "contract",
@@ -126,50 +104,3 @@ def fetch_source_code(contract_address):
     """Retrieves the verified source code of the given address from Etherscan's public API"""    
     r = prepare_etherscan_request(contract_address)
     return get_code_from_response(urllib.request.urlopen(r).read())
-    
-
-def run(address=None, filename=None):
-    source_code_lines = []
-    
-    if address:
-        try:
-            source_code_lines = fetch_source_code(address).split("\n")            
-        except Exception as exc:
-            print(exc)
-            exit(-1)
-    elif filename:
-        source_code_lines = load_contract_lines(filename)
-
-    pragma_statement = extract_pragma(source_code_lines)
-
-    persist_contracts(
-        *extract_contracts(source_code_lines),
-        pragma_statement
-    )
-
-
-def get_args_parser():
-    parser = argparse.ArgumentParser()
-    group = parser.add_mutually_exclusive_group(required=True)
-
-    group.add_argument("-a", "--address",
-        help="Address of the contract (source code must be verified in Etherscan)",
-        type=str,
-        default=None
-    )
-
-    group.add_argument("-f", "--file",
-        help="Solidity file containing several contracts to split",
-        type=str,
-        default=None
-    )
-
-    return parser
-
-
-if __name__ == "__main__":
-    args = get_args_parser().parse_args()
-    if args.address:
-        run(address=args.address)
-    elif args.file:
-        run(filename=args.file)

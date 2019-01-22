@@ -1,6 +1,7 @@
 import unittest
 import os
-from splitter import extract_contracts, load_contract_lines
+from splitter.splitter import extract_contracts
+from splitter.helpers import load_contract_lines
 
 
 class TestExtractContracts(unittest.TestCase):

@@ -1,6 +1,6 @@
 import unittest
 import json
-from splitter import get_code_from_response
+from splitter.splitter import get_code_from_response
 
 
 class TestGetCodeFromResponse(unittest.TestCase):

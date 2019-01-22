@@ -1,6 +1,6 @@
 import unittest
 import urllib.request
-from splitter import prepare_etherscan_request
+from splitter.splitter import prepare_etherscan_request
 
 
 class TestPrepareEtherscanRequest(unittest.TestCase):

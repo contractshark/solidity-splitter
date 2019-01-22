@@ -1,6 +1,6 @@
 import unittest
 import argparse
-from splitter import get_args_parser
+from splitter.helpers import get_args_parser
 
 
 class TestGetArgsParser(unittest.TestCase):
