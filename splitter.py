@@ -31,7 +31,7 @@ def extract_pragma(source_lines):
 
 def load_contract_lines(filepath):
     source_code_lines = []
-    with open(filepath, "r") as source_file:
+    with open(str(filepath), "r") as source_file:
         source_code_lines = source_file.readlines()
     return source_code_lines
 
