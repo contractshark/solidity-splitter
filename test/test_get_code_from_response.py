@@ -19,7 +19,7 @@ class TestGetCodeFromResponse(unittest.TestCase):
         code = get_code_from_response(self.success_response_string)
         self.assertEqual(code, self.expected_code)
 
-    def raises_exception_when_code_not_found(self):
+    def test_raises_exception_when_code_not_found(self):
         self.assertRaises(
             Exception,
             get_code_from_response,
